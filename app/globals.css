@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Cores Primárias - Azul confiável */
+    --primary: 217 91% 60%; /* blue-500 */
+    --primary-foreground: 0 0% 100%;
+
+    /* Cores Secundárias */
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 47% 11%;
+
+    /* Background e Foreground */
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+
+    /* Cards */
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    /* Inputs e Borders */
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 217 91% 60%;
+
+    /* Muted (textos secundários) */
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+
+    /* Accent */
+    --accent: 210 40% 96%;
+    --accent-foreground: 222 47% 11%;
+
+    /* Destructive - Laranja suave para despesas */
+    --destructive: 25 95% 53%; /* orange-500 */
+    --destructive-foreground: 0 0% 100%;
+
+    /* Success - Verde vibrante para receitas */
+    --success: 142 71% 45%; /* emerald-500 */
+    --success-foreground: 0 0% 100%;
+
+    /* Popover */
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    /* Border Radius */
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
