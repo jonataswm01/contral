@@ -1,6 +1,6 @@
 # CONTRAL - WebApp
 
-Aplicação web moderna para gestão financeira pessoal, complemento visual do sistema de gestão via WhatsApp.
+Aplicação web moderna para gestão financeira pessoal. O usuário envia mensagens para o número do CONTRAL no WhatsApp e acompanha tudo em um dashboard visual.
 
 ## 🚀 Tecnologias
 
@@ -18,45 +18,55 @@ Aplicação web moderna para gestão financeira pessoal, complemento visual do s
 ```
 contral-app/
 ├── app/                    # App Router do Next.js
-│   ├── (privado)/         # Rotas protegidas (requerem autenticação)
+│   ├── (marketing)/       # Rotas públicas de marketing
+│   │   └── page.tsx       # Landing Page
+│   ├── (auth)/            # Rotas de autenticação
+│   │   ├── login/
+│   │   ├── cadastro/
+│   │   ├── esqueci-senha/
+│   │   ├── redefinir-senha/
+│   │   └── verificar-email/
+│   ├── (privado)/         # Área autenticada
 │   │   ├── dashboard/
-│   │   ├── historico/
-│   │   ├── contas-fixas/
-│   │   ├── configuracoes/
-│   │   ├── ajuda/
-│   │   └── layout.tsx     # Layout com Header para área privada
-│   ├── login/
-│   ├── cadastro/
-│   ├── onboarding/
+│   │   ├── onboarding/
+│   │   └── layout.tsx
+│   ├── auth/
+│   │   └── callback/      # Callback OAuth Supabase
 │   ├── layout.tsx         # Layout raiz
-│   ├── page.tsx           # Landing Page
 │   └── globals.css        # Estilos globais
 ├── components/
-│   ├── ui/                # Componentes Shadcn/ui
-│   └── header.tsx         # Header da aplicação
+│   ├── layout/
+│   │   └── header.tsx
+│   └── ui/                # Componentes Shadcn/ui
 ├── lib/
 │   ├── supabase/          # Clientes Supabase (client/server)
+│   ├── types/             # Tipos TypeScript
 │   └── utils.ts           # Funções utilitárias
+├── tests/
+│   └── supabase/          # Testes do Supabase
 ├── supabase/
 │   └── schema.sql         # Schema do banco de dados
-└── middleware.ts          # Middleware de autenticação
+├── components/
+│   └── auth/
+│       └── ProtectedRoute.tsx  # Proteção de rotas no cliente
+└── public/                # Arquivos estáticos
 ```
 
 ## 🎨 Design System
 
 ### Cores
-- **Primária**: Azul confiável (`blue-500`)
-- **Sucesso**: Verde vibrante (`emerald-500`) - para receitas
-- **Destrutivo**: Laranja suave (`orange-500`) - para despesas
-- **Background**: Branco
-- **Foreground**: Cinza escuro
+- **Primária**: Azul (`blue-500`)
+- **Sucesso**: Verde (`emerald-500`) - para receitas
+- **Destrutivo**: Laranja (`orange-500`) - para despesas
+- **Background**: Escuro (`slate-950`)
+- **Foreground**: Branco/Cinza claro
 
 ### Tipografia
 - **Display**: Poppins (títulos)
 - **Body**: Inter (texto geral)
 
 ### Componentes
-- Bordas arredondadas (`rounded-md`, `rounded-lg`)
+- Bordas arredondadas
 - Sombras sutis
 - Animações discretas
 - Mobile-first
@@ -65,7 +75,7 @@ contral-app/
 
 O schema completo está em `supabase/schema.sql`. Principais tabelas:
 
-- `perfis` - Dados do usuário
+- `perfis` / `users` - Dados do usuário
 - `categorias` - Categorias de despesas/receitas
 - `contas` - Contas do usuário (Carteira, Banco, etc.)
 - `transacoes` - Todas as despesas e receitas
@@ -75,8 +85,10 @@ O schema completo está em `supabase/schema.sql`. Principais tabelas:
 ## 🔐 Autenticação
 
 - Autenticação via Supabase Auth
-- Middleware protege rotas privadas
+- Proteção de rotas no cliente via `ProtectedRoute`
 - Row Level Security (RLS) no banco de dados
+- Redirecionamento automático baseado em onboarding
+- Hook `useAuth` para gerenciar estado de autenticação
 
 ## 🚦 Como Começar
 
@@ -104,18 +116,35 @@ O schema completo está em `supabase/schema.sql`. Principais tabelas:
 5. **Acessar:**
    Abra [http://localhost:3000](http://localhost:3000)
 
+## 🧪 Testes
+
+Testes do Supabase estão na pasta `tests/supabase/`:
+
+```bash
+# Teste de conexão
+npx tsx tests/supabase/connection.test.ts
+
+# Teste de autenticação
+npx tsx tests/supabase/auth.test.ts
+```
+
+## 📝 Funcionalidades Implementadas
+
+- ✅ Autenticação completa (login, cadastro, recuperação de senha)
+- ✅ Onboarding em 3 etapas
+- ✅ Dashboard (estrutura básica)
+- ✅ Proteção de rotas no cliente (ProtectedRoute)
+- ✅ Integração com Supabase configurada
+
 ## 📝 Próximos Passos
 
-- [ ] Implementar onboarding completo
 - [ ] Conectar dashboard com dados reais do Supabase
-- [ ] Implementar gráfico de pizza com Recharts
-- [ ] Adicionar sincronização em tempo real (Supabase Realtime)
+- [ ] Implementar gráficos com Recharts
 - [ ] Criar página de histórico com filtros
 - [ ] Implementar contas fixas
 - [ ] Página de configurações
-- [ ] Sistema de assinatura
+- [ ] Sincronização em tempo real (Supabase Realtime)
 
 ## 📄 Licença
 
 Este projeto é privado e proprietário.
-

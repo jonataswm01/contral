@@ -1,4 +1,7 @@
-import { Header } from "@/components/header"
+"use client"
+
+import { Header } from "@/components/layout/header"
+import { ProtectedRoute } from "@/components/auth/ProtectedRoute"
 
 export default function PrivateLayout({
   children,
@@ -6,10 +9,12 @@ export default function PrivateLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      <main className="flex-1">{children}</main>
-    </div>
+    <ProtectedRoute>
+      <div className="min-h-screen flex flex-col">
+        <Header />
+        <main className="flex-1">{children}</main>
+      </div>
+    </ProtectedRoute>
   )
 }
 
